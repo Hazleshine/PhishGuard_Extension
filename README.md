@@ -41,9 +41,22 @@ Included screenshots (placed in assets/screenshots/):
 - assets/screenshots/screenshot2.png — Injected warning banner inside Gmail (SPA-aware)
 - assets/screenshots/screenshot3.png — Backend Swagger / API docs (intel endpoints)
 
-Display a screenshot directly with a constrained width (paste your image at assets/screenshots/screenshot1.png):
+Below are the three screenshots displayed with captions. If you prefer side-by-side thumbnails, we can switch to a two- or three-column layout.
 
-<img src="assets/screenshots/screenshot1.png" alt="Extension panel on suspicious site" width="800"/>
+<figure>
+  <img src="assets/screenshots/screenshot1.png" alt="Extension panel on a suspicious movie-streaming site" width="420"/>
+  <figcaption><strong>Screenshot 1:</strong> Extension panel on a suspicious movie-streaming site</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/screenshots/screenshot2.png" alt="Injected warning banner inside Gmail (SPA-aware)" width="420"/>
+  <figcaption><strong>Screenshot 2:</strong> Injected warning banner inside Gmail (SPA-aware)</figcaption>
+</figure>
+
+<figure>
+  <img src="assets/screenshots/screenshot3.png" alt="Backend Swagger / API docs (intel endpoints)" width="420"/>
+  <figcaption><strong>Screenshot 3:</strong> Backend Swagger / API docs (intel endpoints)</figcaption>
+</figure>
 
 (Replace or add higher-resolution images/GIFs to this folder to improve the demo section.)
 
@@ -191,4 +204,3 @@ Contributors:
 - Google Gemini
 - FastAPI
 - Browser extension docs and SPA handling best practices
-```
