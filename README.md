@@ -1,32 +1,31 @@
-# 🛡️ PhishGuard AI
-### AI-Driven Phishing Detection Chrome Extension
+🛡️ PhishGuard AI
+AI-Driven Phishing Detection Chrome Extension
 
-PhishGuard AI is a full-stack cybersecurity project that detects phishing risks in real time using a combination of **AI-based analysis** and **rule-based security heuristics**.  
-It integrates a **Chrome Extension (Manifest V3)** with a **cloud-deployed FastAPI backend**, and is designed to work reliably on modern dynamic platforms such as **Gmail**.
+PhishGuard AI is a full-stack cybersecurity project that detects phishing threats in real time using a combination of AI-based intelligence and rule-based security heuristics.
+It integrates a Chrome Extension (Manifest V3) with a cloud-deployed FastAPI backend, and is designed to work reliably on modern, dynamic platforms such as Gmail.
 
-This project focuses on **real-world security constraints**, including browser sandboxing, CORS restrictions, secure API key handling, and AI rate-limit management.
+The project is built with real-world security constraints in mind, including browser sandboxing, CORS policies, secure API key handling, and AI rate-limit management.
 
----
+🚀 Key Features
 
-## 🚀 Key Features
+🔍 Real-time phishing risk detection for active web pages
 
-- 🔍 Real-time phishing detection for active web pages  
-- 🤖 AI-powered URL analysis using **Google Gemini**  
-- 🧠 Manual heuristic-based fallback detection  
-- 📧 Gmail-safe warning banner injection (SPA-aware)  
-- ☁️ Secure cloud backend deployment (Render)  
-- 🔐 API keys protected on the server side  
-- 📊 Scan history logging for transparency and debugging  
+🤖 AI-powered URL analysis using Google Gemini
 
----
+🧠 Manual heuristic-based fallback detection
 
-## 🧱 System Architecture
+📧 Gmail-safe warning banner injection (SPA-aware)
 
-### High-Level Workflow
+☁️ Secure cloud backend deployment on Render
 
-```mermaid
+🔐 API keys protected on the server side
+
+📊 Scan history logging for transparency and debugging
+
+🧱 System Architecture
+High-Level Workflow
 flowchart LR
-    A[User Browses Website / Gmail] --> B[content.js]
+    A[User Browses Website or Gmail] --> B[content.js]
     B --> C[background.js]
     C --> D[FastAPI Backend]
     D --> E[Gemini AI]
@@ -34,9 +33,10 @@ flowchart LR
     E --> G[Risk Verdict]
     F --> G[Risk Verdict]
     G --> B
+
 Architecture Explanation
 
-content.js injects phishing warning banners into the page
+content.js injects phishing alert banners into the webpage
 
 background.js securely communicates with the backend API
 
@@ -46,15 +46,7 @@ Gemini AI provides intelligent risk classification
 
 Manual heuristics act as a fallback when AI is unavailable
 
-This architecture:
-
-Avoids CORS and browser sandbox limitations
-
-Keeps sensitive API keys out of the extension
-
-Works reliably on Single Page Applications (SPAs) like Gmail
-
-Follows industry-standard Chrome extension design patterns
+This architecture avoids CORS and browser sandbox limitations, keeps sensitive API keys out of the extension, and works reliably on Single Page Applications such as Gmail.
 
 🛠️ Technology Stack
 Frontend (Chrome Extension)
@@ -99,7 +91,7 @@ pip install -r requirements.txt
 python main.py
 
 
-Create a .env file inside backend/:
+Create a .env file inside the backend/ directory:
 
 GEMINI_API_KEY=your_api_key_here
 GEMINI_MODEL=models/gemini-2.5-flash
@@ -167,18 +159,10 @@ Sana Yasmine
 Cybersecurity & Software Engineering
 Final-Year Capstone Project
 
-🔗 GitHub: https://github.com/Hazleshine
+GitHub: https://github.com/Hazleshine
 
 ⭐ Project Significance
 
-PhishGuard AI demonstrates:
-
-Secure Chrome extension architecture
-
-Practical AI integration with graceful degradation
-
-Cloud-native backend deployment
-
-Awareness of real-world browser and security constraints
+PhishGuard AI demonstrates secure Chrome extension architecture, practical AI integration with graceful degradation, cloud-native backend deployment, and awareness of real-world browser and security constraints.
 
 This project is built using production-oriented engineering principles, not tutorial shortcuts.
