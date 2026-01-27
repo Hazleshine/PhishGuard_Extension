@@ -2,7 +2,7 @@
 
 AI-driven phishing detection Chrome extension (Manifest V3) with a FastAPI backend.
 
-PhishGuard AI detects phishing risks in real time using Google Gemini + fallback manual heuristics. The design keeps API keys on the server, avoids browser CORS/sandboxing issues, and works reliably with single-page apps such as Gmail.
+PhishGuard AI detects phishing risks in real time using Google Gemini + fallback manual heuristics. The design keeps API keys on the server, avoids browser CORS/sandboxing issues, and works reliably w[...]
 
 Live backend: https://phishguard-backend-upyk.onrender.com
 
@@ -40,6 +40,10 @@ Included screenshots (placed in assets/screenshots/):
 - assets/screenshots/screenshot1.png — Extension panel on a suspicious movie-streaming site
 - assets/screenshots/screenshot2.png — Injected warning banner inside Gmail (SPA-aware)
 - assets/screenshots/screenshot3.png — Backend Swagger / API docs (intel endpoints)
+
+Display a screenshot directly with a constrained width (paste your image at assets/screenshots/screenshot1.png):
+
+<img src="assets/screenshots/screenshot1.png" alt="Extension panel on suspicious site" width="800"/>
 
 (Replace or add higher-resolution images/GIFs to this folder to improve the demo section.)
 
@@ -127,7 +131,7 @@ Chrome Extension
 5. Visit any website or Gmail to see phishing alerts
 
 Testing the extension with the local backend
-- If testing against local backend, ensure background.js points to your local backend URL, or use a small proxy. Be careful with CORS — the extension runs in the browser context, but message passing should avoid exposing keys.
+- If testing against local backend, ensure background.js points to your local backend URL, or use a small proxy. Be careful with CORS — the extension runs in the browser context, but message passing[...]
 
 ---
 
@@ -176,6 +180,9 @@ AI-Based Analysis
 Author: Sana Yasmine — Final-Year Capstone Project  
 GitHub: https://github.com/Hazleshine
 
+Contributors:
+- Riyaz Shaik — GitHub: https://github.com/RiyazShaik27
+
 (Consider adding a LICENSE file — MIT is common for projects like this.)
 
 ---
@@ -184,3 +191,4 @@ GitHub: https://github.com/Hazleshine
 - Google Gemini
 - FastAPI
 - Browser extension docs and SPA handling best practices
+```
