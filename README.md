@@ -1,29 +1,54 @@
-🛡️ PhishGuard AI
-AI-Driven Phishing Detection Chrome Extension
+# PhishGuard AI 🛡️
 
-PhishGuard AI is a full-stack cybersecurity project that detects phishing threats in real time using a combination of AI-based intelligence and rule-based security heuristics.
-It integrates a Chrome Extension (Manifest V3) with a cloud-deployed FastAPI backend, and is designed to work reliably on modern, dynamic platforms such as Gmail.
+AI-driven phishing detection Chrome extension (Manifest V3) with a FastAPI backend.
 
-The project is built with real-world security constraints in mind, including browser sandboxing, CORS policies, secure API key handling, and AI rate-limit management.
+PhishGuard AI detects phishing risks in real time using Google Gemini + fallback manual heuristics. The design keeps API keys on the server, avoids browser CORS/sandboxing issues, and works reliably with single-page apps such as Gmail.
 
-🚀 Key Features
+Live backend: https://phishguard-backend-upyk.onrender.com
 
-🔍 Real-time phishing risk detection for active web pages
+---
 
-🤖 AI-powered URL analysis using Google Gemini
+## Table of Contents
+- [Features](#features)
+- [Demo / Screenshots](#demo--screenshots)
+- [Architecture](#architecture)
+- [API (Endpoints)](#api-endpoints)
+- [Local Setup](#local-setup)
+  - [Backend](#backend)
+  - [Chrome extension](#chrome-extension)
+- [Detection Methodology](#detection-methodology)
+- [Known Limitations & Troubleshooting](#known-limitations--troubleshooting)
+- [Roadmap / Future Enhancements](#roadmap--future-enhancements)
+- [Contributing](#contributing)
+- [License & Author](#license--author)
 
-🧠 Manual heuristic-based fallback detection
+---
 
-📧 Gmail-safe warning banner injection (SPA-aware)
+## Features
+- Real-time phishing risk detection for active web pages
+- AI-powered URL/context analysis via Google Gemini
+- Heuristic fallback detection if AI is unavailable
+- Gmail-safe warning banner injection (SPA-aware using MutationObserver)
+- Scan history logging for transparency
+- Secure architecture: API keys kept server-side
 
-☁️ Secure cloud backend deployment on Render
+---
 
-🔐 API keys protected on the server side
+## Demo / Screenshots
 
-📊 Scan history logging for transparency and debugging
+Included screenshots (placed in assets/screenshots/):
+- assets/screenshots/screenshot1.png — Extension panel on a suspicious movie-streaming site
+- assets/screenshots/screenshot2.png — Injected warning banner inside Gmail (SPA-aware)
+- assets/screenshots/screenshot3.png — Backend Swagger / API docs (intel endpoints)
 
-🧱 System Architecture
-High-Level Workflow
+(Replace or add higher-resolution images/GIFs to this folder to improve the demo section.)
+
+---
+
+## Architecture
+
+High-level flow:
+
 flowchart LR
     A[User Browses Website or Gmail] --> B[content.js]
     B --> C[background.js]
@@ -34,135 +59,128 @@ flowchart LR
     F --> G[Risk Verdict]
     G --> B
 
-Architecture Explanation
+- content.js injects phishing alert banners into the page.
+- background.js mediates messages between the extension UI and backend.
+- FastAPI backend performs analysis (AI + heuristics).
+- Gemini provides context-aware scoring; heuristics run as fallback.
 
-content.js injects phishing alert banners into the webpage
+---
 
-background.js securely communicates with the backend API
+## API (Endpoints)
 
-FastAPI backend performs phishing analysis
+Base URL: https://phishguard-backend-upyk.onrender.com
 
-Gemini AI provides intelligent risk classification
+- GET  /          → Health check
+- POST /analyze   → Analyze a URL (request body: JSON with url and optional context)
+- GET  /history   → View scan history
 
-Manual heuristics act as a fallback when AI is unavailable
+Example analyze request:
+```bash
+curl -X POST "https://phishguard-backend-upyk.onrender.com/analyze" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"http://example.com/login","context":"email link clicked by user@example.com"}'
+```
 
-This architecture avoids CORS and browser sandbox limitations, keeps sensitive API keys out of the extension, and works reliably on Single Page Applications such as Gmail.
+Response (example):
+```json
+{
+  "risk_score": 78,
+  "verdict": "suspicious",
+  "explanation": "Domain uses an impersonated brand + IP-based URL.",
+  "heuristics": { /* details */ }
+}
+```
 
-🛠️ Technology Stack
-Frontend (Chrome Extension)
+---
 
-JavaScript
+## Local Setup
 
-Chrome Extension (Manifest V3)
-
-MutationObserver for SPA navigation
-
-Secure message-passing architecture
+Prerequisites:
+- Python 3.10+ recommended
+- Node/Chrome for extension testing
+- (Optional) virtualenv or venv
 
 Backend
-
-Python
-
-FastAPI
-
-Google Gemini API
-
-Requests, Pydantic
-
-Cloud
-
-Render (Free Tier)
-
-🌐 Live Backend
-
-Base URL
-
-https://phishguard-backend-upyk.onrender.com
-
-Available Endpoints
-GET  /          → Health check
-POST /analyze   → Analyze a URL
-GET  /history   → View scan history
-
-📦 Local Setup
-Backend Setup
-cd backend
-pip install -r requirements.txt
-python main.py
-
-
-Create a .env file inside the backend/ directory:
-
+1. cd backend
+2. Create and activate a venv:
+   - Linux/macOS: python -m venv venv && source venv/bin/activate
+   - Windows: python -m venv venv && venv\Scripts\activate
+3. Install dependencies:
+   - pip install -r requirements.txt
+4. Create a .env file in backend/ with:
+```
 GEMINI_API_KEY=your_api_key_here
 GEMINI_MODEL=models/gemini-2.5-flash
+# any other env vars used by your app (e.g., DB, logging)
+```
+5. Run the app (development):
+   - uvicorn main:app --reload --host 0.0.0.0 --port 8000
+   - Or: python main.py (if main.py starts the app)
 
-Chrome Extension Setup
+Note: If you rely on Render deployment-specific config, check those env values in Render dashboard.
 
-Open chrome://extensions
+Chrome Extension
+1. Open chrome://extensions
+2. Enable "Developer mode"
+3. Click "Load unpacked"
+4. Select the `extension/` folder (or the folder where your manifest.json lives)
+5. Visit any website or Gmail to see phishing alerts
 
-Enable Developer Mode
+Testing the extension with the local backend
+- If testing against local backend, ensure background.js points to your local backend URL, or use a small proxy. Be careful with CORS — the extension runs in the browser context, but message passing should avoid exposing keys.
 
-Click Load unpacked
+---
 
-Select the extension/ folder
+## Detection Methodology
 
-Visit any website or open Gmail to view phishing alerts
-
-🧪 Detection Methodology
-Manual Heuristic Checks
-
-HTTPS enforcement
-
-Suspicious top-level domains
-
-IP-based URLs
-
-URL length and obfuscation patterns
-
-Brand impersonation indicators
+Manual Heuristics (fallback)
+- HTTPS / TLS enforcement
+- Suspicious TLDs and brand typos
+- IP-based URLs
+- Long/obfuscated URL patterns
+- Brand impersonation signs (homoglyphs, path-lookup tricks)
 
 AI-Based Analysis
+- Context-aware risk scoring using Google Gemini
+- Risk score: 0–100 and human-readable explanation
+- If AI is unavailable or rate-limited, heuristics are used automatically
 
-Context-aware phishing detection
+---
 
-Risk score from 0–100
+## Known Limitations & Troubleshooting
+- Render free tier may cause cold-start delays — add retries in client/backoff logic.
+- Gemini free tier has daily limits — implement rate-limiting and caching of recent verdicts.
+- Chrome Web Store publishing not completed — extension must be loaded unpacked for now.
+- If banners do not appear in Gmail: check MutationObserver code, ensure extension has correct host permissions.
+- If AI requests fail locally: verify GEMINI_API_KEY, model name, and network connectivity.
 
-Human-readable explanation for each verdict
+---
 
-If the AI service is unavailable or rate-limited, the system automatically falls back to manual detection logic.
+## Roadmap / Future Enhancements
+- VirusTotal reputation checks
+- Email body & embedded link analysis
+- Chrome Web Store publication
+- Threat-intel feeds & aggregation
+- User analytics dashboard
 
-⚠️ Known Limitations
+---
 
-Render free tier may introduce cold-start delays
+## Contributing
+- Open issues for bugs or feature requests
+- Fork → branch → PR. Use clear commit messages and include tests if applicable.
+- Add a CONTRIBUTING.md if you expect external contributors.
 
-Google Gemini free tier has daily request limits
+---
 
-Chrome Web Store publication is not yet completed
-
-These limitations are documented intentionally to reflect real production environments.
-
-📈 Future Enhancements
-
-VirusTotal reputation integration
-
-Email body and embedded link analysis
-
-Chrome Web Store deployment
-
-Threat-intelligence feeds
-
-User analytics dashboard
-
-👩‍💻 Author
-
-Sana Yasmine
-Cybersecurity & Software Engineering
-Final-Year Capstone Project
-
+## License & Author
+Author: Sana Yasmine — Final-Year Capstone Project  
 GitHub: https://github.com/Hazleshine
 
-⭐ Project Significance
+(Consider adding a LICENSE file — MIT is common for projects like this.)
 
-PhishGuard AI demonstrates secure Chrome extension architecture, practical AI integration with graceful degradation, cloud-native backend deployment, and awareness of real-world browser and security constraints.
+---
 
-This project is built using production-oriented engineering principles, not tutorial shortcuts.
+## Acknowledgements
+- Google Gemini
+- FastAPI
+- Browser extension docs and SPA handling best practices
