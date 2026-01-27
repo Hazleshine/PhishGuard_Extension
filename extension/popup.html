@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PhishGuard AI</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1 class="title">PhishGuard AI</h1>
+
+      <button id="scanBtn" class="scan-btn">SCAN CURRENT SITE</button>
+      <button id="clearBtn" class="clear-btn">CLEAR HISTORY</button>
+
+      <div class="result-card">
+        <div class="result-row">
+          <span class="label">Verdict:</span>
+          <span id="verdict" class="value">---</span>
+        </div>
+
+        <div class="result-row">
+          <span class="label">Risk Score:</span>
+          <span id="riskScore" class="value">0/100</span>
+        </div>
+
+        <div class="result-row reasons-row">
+          <span class="label">Reasons:</span>
+          <span id="reasons" class="value reasons">---</span>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <h2 class="subtitle">Recent Scans</h2>
+      <div id="historyList" class="history-list">
+        <div class="history-empty">Loading...</div>
+      </div>
+
+      <div class="footer">
+        <span class="small">Backend:</span>
+        <span class="small mono">127.0.0.1:8000</span>
+      </div>
+    </div>
+
+    <script src="popup.js"></script>
+  </body>
+</html>
