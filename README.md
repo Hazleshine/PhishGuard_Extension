@@ -1,5 +1,7 @@
 # PhishGuard AI 🛡️
 
+License: MIT — see [LICENSE](LICENSE)
+
 AI-driven phishing detection Chrome extension (Manifest V3) with a FastAPI backend.
 
 PhishGuard AI detects phishing risks in real time using Google Gemini + fallback manual heuristics. The design keeps API keys on the server, avoids browser CORS/sandboxing issues, and works reliably w[...]
@@ -190,13 +192,13 @@ AI-Based Analysis
 ---
 
 ## License & Author
+License: MIT — see the full text in the [LICENSE](LICENSE) file.
+
 Author: Sana Yasmine — Final-Year Capstone Project  
 GitHub: https://github.com/Hazleshine
 
 Contributors:
 - Riyaz Shaik — GitHub: https://github.com/RiyazShaik27
-
-(Consider adding a LICENSE file — MIT is common for projects like this.)
 
 ---
 
@@ -204,3 +206,4 @@ Contributors:
 - Google Gemini
 - FastAPI
 - Browser extension docs and SPA handling best practices
+```
